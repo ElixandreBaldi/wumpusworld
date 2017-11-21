@@ -5,14 +5,32 @@
  */
 package wumpusworld;
 
+import static java.lang.System.exit;
+
 /**
  *
  * @author administrador
  */
 public class WumpusWorld {
     public static int n = 15;
+    
     public static Agent a;
+    
     public static Environment t;
+    
+    public static final byte MASKAGENT = 1;
+    
+    public static final byte MASKWUMPUS = 2;
+
+    public static final byte MASKGOLD = 4;
+
+    public static final byte MASKHOLE = 8;
+
+    public static final byte MASKSTINK = 16;
+
+    public static final byte MASKBREEZE = 32;
+
+    public static final byte MASKLIGHT = 64;        
     /**
      * @param args the command line arguments
      */
@@ -22,21 +40,36 @@ public class WumpusWorld {
         
         while(true) {
             a.action();             
-            WumpusWorld.verifyNewPosition( t.getSensation( a.getLine(), a.getColumn()) );
+            a.setKnowledge( t.getSensation( a.getLine(), a.getColumn()) );    
+            WumpusWorld.verifyFuture(a.getLine(), a.getColumn());
             
-            if(a.getLine() == 14 &&  a.getColumn() == 14){
-                System.out.println("");
-                a.printEnvironment();
-                System.out.println("");
-                System.out.println("");
-                t.printBoard();
+            if(a.getLine() == 14 &&  a.getColumn() == 14) {
+                WumpusWorld.printMatrix();
                 break;
             }
                 
         }
+        
+    }   
+    public static void printMatrix() {
+        System.out.println("");
+        a.printEnvironment();
+        System.out.println("");
+        System.out.println("");
+        t.printBoard();        
     }
-    
-    public static void verifyNewPosition(byte sensation) {
-        a.setKnowledge(sensation);
+
+    private static void verifyFuture(int line, int column) {
+        byte teste = 8;
+        byte sensation = t.getSensation(line, column);
+        if( (sensation & MASKWUMPUS) != 0 || (sensation & MASKHOLE) != 0){
+            System.out.println("You lost");
+            printMatrix();
+            System.exit(0);
+        } else if((sensation & MASKGOLD) != 0) {
+            System.out.println("Congratilations! You Winn!");
+            printMatrix();
+            System.exit(0);
+        }            
     }
 }

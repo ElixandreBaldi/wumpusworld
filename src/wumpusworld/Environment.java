@@ -7,6 +7,11 @@ package wumpusworld;
 
 import java.util.Arrays;
 import java.util.Random;
+import static wumpusworld.WumpusWorld.MASKBREEZE;
+import static wumpusworld.WumpusWorld.MASKGOLD;
+import static wumpusworld.WumpusWorld.MASKHOLE;
+import static wumpusworld.WumpusWorld.MASKSTINK;
+import static wumpusworld.WumpusWorld.MASKWUMPUS;
 
 /**
  *
@@ -36,21 +41,7 @@ public class Environment {
 
     private int numberGolds;
 
-    private int n;
-
-    private byte maskAgent;
-    
-    private byte maskWumpus;
-
-    private byte maskGold;
-
-    private byte maskHole;
-
-    private byte maskStink;
-
-    private byte maskBreeze;
-
-    private byte maskLight;
+    private int n;   
 
     Random random;
 
@@ -71,21 +62,7 @@ public class Environment {
         
         this.random = new Random();
         
-        this.inicializeBoard();        
-
-        this.maskAgent = (byte) 1;
-
-        this.maskWumpus = (byte) 2;
-
-        this.maskHole = (byte) 4;
-
-        this.maskGold = (byte) 8;
-
-        this.maskStink = (byte) 16;
-
-        this.maskBreeze = (byte) 32;
-
-        this.maskLight = (byte) 64;
+        this.inicializeBoard();               
     }
     
 
@@ -136,7 +113,7 @@ public class Environment {
             while (true) {
                 line = generateNumberRandom(0, this.n - 1);
                 column = generateNumberRandom(0, this.n - 1);
-                if (((byte) this.board[line][column] & this.maskWumpus) == 0 && ((byte) this.board[line][column] & this.maskHole) == 0 && (line != 0 || column != 0)) {
+                if (((byte) this.board[line][column] & MASKWUMPUS) == 0 && ((byte) this.board[line][column] & MASKHOLE) == 0 && (line != 0 || column != 0)) {
                     break;
                 }
             }
@@ -154,59 +131,59 @@ public class Environment {
             while (true) {
                 line = generateNumberRandom(0, this.n - 1);
                 column = generateNumberRandom(0, this.n - 1);
-                if (((byte) this.board[line][column] & this.maskWumpus) == 0 && ((byte) this.board[line][column] & this.maskHole) == 0 && ((byte) this.board[line][column] & this.maskGold) == 0 && (line != 0 || column != 0)) {
+                if (((byte) this.board[line][column] & MASKWUMPUS) == 0 && ((byte) this.board[line][column] & MASKHOLE) == 0 && ((byte) this.board[line][column] & MASKGOLD) == 0 && (line != 0 || column != 0)) {
                     break;
                 }
             }
             this.golds[i] = new Gold(line, column);
-            this.board[line][column] = (byte) (this.board[line][column] | this.maskGold);
+            this.board[line][column] = (byte) (this.board[line][column] | MASKGOLD);
             this.setLigth(line, column);
         }
     }
 
     public void setStink(int line, int column) {
         if (line - 1 >= 0) {
-            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | this.maskStink);
+            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | MASKSTINK);
         }
         if (line + 1 < this.n) {
-            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | this.maskStink);
+            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | MASKSTINK);
         }
         if (column - 1 >= 0) {
-            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | this.maskStink);
+            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | MASKSTINK);
         }
         if (column + 1 < this.n) {
-            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | this.maskStink);
+            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | MASKSTINK);
         }
     }
 
     public void setBreeze(int line, int column) {
         if (line - 1 >= 0) {
-            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | this.maskBreeze);
+            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | MASKBREEZE);
         }
         if (line + 1 < this.n) {
-            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | this.maskBreeze);
+            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | MASKBREEZE);
         }
         if (column - 1 >= 0) {
-            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | this.maskBreeze);
+            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | MASKBREEZE);
         }
         if (column + 1 < this.n) {
-            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | this.maskBreeze);
+            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | MASKBREEZE);
         }
     }
 
     public void setLigth(int line, int column) {
 
         if (line - 1 >= 0) {
-            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | this.maskLight);
+            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | MASKBREEZE);
         }
         if (line + 1 < this.n) {
-            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | this.maskLight);
+            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | MASKBREEZE);
         }
         if (column - 1 >= 0) {
-            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | this.maskLight);
+            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | MASKBREEZE);
         }
         if (column + 1 < this.n) {
-            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | this.maskLight);
+            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | MASKBREEZE);
         }
     }
     
