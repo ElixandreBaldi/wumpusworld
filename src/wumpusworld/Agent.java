@@ -25,10 +25,14 @@ public class Agent {
     
     private boolean DANGER;
     
+    private boolean LIGHT;
     
+    private int iMovementLight;
     
     Agent(int line, int column, int n) {        
-        this.DANGER = false;
+        this.DANGER = false;        
+        this.LIGHT = false;
+        this.iMovementLight = 1;
         this.n = n;
         this.line = line;
         this.column = column;
@@ -129,9 +133,54 @@ public class Agent {
     public void action() {
         boolean positions[] = this.searchSafePosition();  
         System.out.println("Position: "+this.line+ ", "+this.column);
-        if(this.DANGER) {                        
+        
+        if (this.LIGHT){
+            System.out.println("Detect Light");
+            if(this.iMovementLight == 1) {
+                if(moveTop())
+                    this.iMovementLight *= -1;
+                else
+                    this.iMovementLight++;
+            }else if(this.iMovementLight == -1) {
+                this.iMovementLight *= -1;
+                this.iMovementLight++;
+                moveBottom();
+            }else if(this.iMovementLight == 2) {
+                if(moveRight())
+                    this.iMovementLight *= -1;
+                else
+                    this.iMovementLight++;
+            }else if(this.iMovementLight == -2) {
+                this.iMovementLight *= -1;
+                this.iMovementLight++;
+                moveLeft();
+            }else if(this.iMovementLight == 3) {
+                if(moveBottom())
+                    this.iMovementLight *= -1;
+                else
+                    this.iMovementLight++;
+            }else if(this.iMovementLight == -3) {
+                this.iMovementLight *= -1;
+                this.iMovementLight++;
+                moveTop();
+            }else if(this.iMovementLight == 4){
+                if(moveLeft())
+                    this.iMovementLight *= -1;
+                else
+                    this.iMovementLight++;
+            }else if(this.iMovementLight == -4) {
+                this.iMovementLight *= -1;
+                this.iMovementLight++;
+                moveRight();
+            }else{
+                System.out.println("Agent - Line 164");
+                System.exit(1);
+            }
+        }else if(this.DANGER) {                        
+            System.out.println("Detect Danger");
             this.movementSafePosition(positions);
-        } else {                        
+        }else {   
+            System.out.println("Detect Nothing");
             this.movementRondonUnknown(positions);
         }        
     }   
@@ -189,7 +238,12 @@ public class Agent {
                 return i;
         }
     }
+    
     void setDanger() {
         this.DANGER = true;
+    }
+    
+    void setLight() {
+        this.LIGHT = true;
     }
 }

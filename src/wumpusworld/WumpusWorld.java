@@ -74,6 +74,7 @@ public class WumpusWorld {
             System.exit(0);
         } else if( (sensation & MASKBREEZE) != 0 || (sensation & MASKSTINK) != 0){
             a.setDanger();
-        }
+        } else if( (sensation & MASKLIGHT) == MASKLIGHT)
+            a.setLight();
     }
 }

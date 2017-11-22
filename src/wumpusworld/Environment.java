@@ -10,6 +10,7 @@ import java.util.Random;
 import static wumpusworld.WumpusWorld.MASKBREEZE;
 import static wumpusworld.WumpusWorld.MASKGOLD;
 import static wumpusworld.WumpusWorld.MASKHOLE;
+import static wumpusworld.WumpusWorld.MASKLIGHT;
 import static wumpusworld.WumpusWorld.MASKSTINK;
 import static wumpusworld.WumpusWorld.MASKWUMPUS;
 import static wumpusworld.WumpusWorld.random;
@@ -51,7 +52,7 @@ public class Environment {
         
         this.setHoles(n / 2);
         
-        this.setGolds(n / 2);
+        this.setGolds(1);
     }       
     
     public void init(int n) {
@@ -171,16 +172,16 @@ public class Environment {
     public void setLigth(int line, int column) {
 
         if (line - 1 >= 0) {
-            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | MASKBREEZE);
+            this.board[line - 1][column] = (byte) (this.board[line - 1][column] | MASKLIGHT);
         }
         if (line + 1 < this.n) {
-            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | MASKBREEZE);
+            this.board[line + 1][column] = (byte) (this.board[line + 1][column] | MASKLIGHT);
         }
         if (column - 1 >= 0) {
-            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | MASKBREEZE);
+            this.board[line][column - 1] = (byte) (this.board[line][column - 1] | MASKLIGHT);
         }
         if (column + 1 < this.n) {
-            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | MASKBREEZE);
+            this.board[line][column + 1] = (byte) (this.board[line][column + 1] | MASKLIGHT);
         }
     }
     
