@@ -225,8 +225,10 @@ public class Agent {
             moveBottom();
         else if(i == 3)
             moveLeft();
-        else
+        else {
+            System.out.println("Agent - Line 229");
             System.exit(1);
+        }
         
         this.DANGER = false;
     }
