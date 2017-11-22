@@ -12,6 +12,7 @@ import static wumpusworld.WumpusWorld.MASKGOLD;
 import static wumpusworld.WumpusWorld.MASKHOLE;
 import static wumpusworld.WumpusWorld.MASKSTINK;
 import static wumpusworld.WumpusWorld.MASKWUMPUS;
+import static wumpusworld.WumpusWorld.random;
 
 /**
  *
@@ -41,9 +42,7 @@ public class Environment {
 
     private int numberGolds;
 
-    private int n;   
-
-    Random random;
+    private int n;      
 
     public Environment(int n) {
         this.init(n);
@@ -58,9 +57,7 @@ public class Environment {
     public void init(int n) {
         this.n = n;
         
-        this.board = new byte[n][n];
-        
-        this.random = new Random();
+        this.board = new byte[n][n];                
         
         this.inicializeBoard();               
     }
