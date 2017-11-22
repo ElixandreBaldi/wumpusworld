@@ -7,14 +7,16 @@ package wumpusworld;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
-import static wumpusworld.WumpusWorld.MASKUNKNOWN;
-import static wumpusworld.WumpusWorld.random;
+import static wumpusworld.Interface.MASKUNKNOWN;
+import static wumpusworld.Interface.random;
 
 /**
  *
  * @author administrador
  */
 public class Agent {
+    public int contMoviment;
+    
     private int line;
     
     private int column;
@@ -29,7 +31,8 @@ public class Agent {
     
     private int iMovementLight;
     
-    Agent(int line, int column, int n) {        
+    Agent(int line, int column, int n) {
+        this.contMoviment = 0;        
         this.DANGER = false;        
         this.LIGHT = false;
         this.iMovementLight = 1;
@@ -97,13 +100,15 @@ public class Agent {
         this.environment[line][column] = know;
     }
     
-    public void printEnvironment() {
-        for (int i = 0; i < this.n; i++) {
-            for (int j = 0; j < this.n; j++) {
-                System.out.printf("%4d", this.environment[i][j]);
-            }
-            System.out.println();
-        }
+    public byte[][] printEnvironment() {
+//        for (int i = 0; i < this.n; i++) {
+//            for (int j = 0; j < this.n; j++) {
+//                System.out.printf("%4d", this.environment[i][j]);
+//            }
+//            System.out.println();
+//        }
+        
+        return this.environment;
     }
     
     public boolean[] searchSafePosition() {
@@ -131,8 +136,10 @@ public class Agent {
     }
     
     public void action() {
+        this.contMoviment++;
+        System.out.println("Movimento: "+contMoviment);
         boolean positions[] = this.searchSafePosition();  
-        System.out.println("Position: "+this.line+ ", "+this.column);
+        //System.out.println("Position: "+this.line+ ", "+this.column);
         
         if (this.LIGHT){
             System.out.println("Detect Light");

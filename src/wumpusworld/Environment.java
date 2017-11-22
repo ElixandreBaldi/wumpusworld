@@ -7,13 +7,13 @@ package wumpusworld;
 
 import java.util.Arrays;
 import java.util.Random;
-import static wumpusworld.WumpusWorld.MASKBREEZE;
-import static wumpusworld.WumpusWorld.MASKGOLD;
-import static wumpusworld.WumpusWorld.MASKHOLE;
-import static wumpusworld.WumpusWorld.MASKLIGHT;
-import static wumpusworld.WumpusWorld.MASKSTINK;
-import static wumpusworld.WumpusWorld.MASKWUMPUS;
-import static wumpusworld.WumpusWorld.random;
+import static wumpusworld.Interface.MASKBREEZE;
+import static wumpusworld.Interface.MASKGOLD;
+import static wumpusworld.Interface.MASKHOLE;
+import static wumpusworld.Interface.MASKLIGHT;
+import static wumpusworld.Interface.MASKSTINK;
+import static wumpusworld.Interface.MASKWUMPUS;
+import static wumpusworld.Interface.random;
 
 /**
  *
@@ -72,14 +72,16 @@ public class Environment {
         }
     }
 
-    public void printBoard() {
-        for (int i = 0; i < this.n; i++) {
-            for (int j = 0; j < this.n; j++) {
-
-                System.out.printf("%4d", this.board[i][j]);
-            }
-            System.out.println();
-        }
+    public byte[][] printBoard() {
+//        for (int i = 0; i < this.n; i++) {
+//            for (int j = 0; j < this.n; j++) {
+//
+//                System.out.printf("%4d", this.board[i][j]);
+//            }
+//            System.out.println();
+//        }
+        
+        return this.board;
     }
 
     public int generateNumberRandom(int min, int max) {        
